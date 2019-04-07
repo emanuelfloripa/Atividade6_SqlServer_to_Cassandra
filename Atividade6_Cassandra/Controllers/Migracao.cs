@@ -8,41 +8,44 @@ namespace Atividade6_Cassandra.Controllers
 {
     public class Migracao
     {
-        private string sql;
+        private string sql = "SELECT * FROM resource_qualification_value";
 
         public Migracao()
         {
 
         }
 
-        public void LoadSQL()
+
+        public void TestConexaoCassandra()
         {
 
+        }
 
-            string connStr = "";
+
+        public void TesteLoadSQL()
+        {
+            var connStr = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            
             var con = new SqlConnection(connStr);
             con.Open();
 
             var command = new SqlCommand(sql, con);
-            var adapter = new SqlDataAdapter();
-
+            SqlDataReader dataReader;
             try
             {
-                adapter.InsertCommand = command;
-                adapter.InsertCommand.ExecuteNonQuery();
-
-
+                dataReader = command.ExecuteReader();
+                string xxx;
+                while(dataReader.Read())
+                {
+                    xxx = (string)dataReader.GetValue(0);
+                    System.Console.WriteLine(xxx);
+                }
             }
             finally 
             {
                 command.Dispose();
                 con.Close();
             }
-
-
-
         }
-
-    
     }
 }
