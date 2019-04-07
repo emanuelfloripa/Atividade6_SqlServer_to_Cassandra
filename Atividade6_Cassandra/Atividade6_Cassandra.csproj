@@ -231,6 +231,9 @@
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EmbeddedResource Include="Scripts\ConsultaNotaFiscal.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="Scripts\dump_invoice_system_convertido.sql" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -402,6 +405,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ConsultaNotaFiscalSQL.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\NotaFiscalModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

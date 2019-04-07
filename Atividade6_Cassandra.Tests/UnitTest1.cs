@@ -27,5 +27,11 @@ namespace Atividade6_Cassandra.Tests
             var result = cas.TesteConexao();
             Assert.IsTrue(result);
         }
+
+        [TestMethod]
+        public void loadScriptSqlFromFileResource()
+        {
+            var script = Migracao.GetEmbeddedResourceFile("ConsultaNotaFiscal");
+        }
     }
 }
