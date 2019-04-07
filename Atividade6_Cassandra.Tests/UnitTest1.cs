@@ -16,8 +16,16 @@ namespace Atividade6_Cassandra.Tests
         [TestMethod]
         public void LoadSQL()
         {
-            var mm =new Migracao();
+            var mm = new Migracao();
             mm.TesteLoadSQL();
+        }
+
+        [TestMethod]
+        public void OpenCassandraDB()
+        {
+            var cas = new CassandraCtr();
+            var result = cas.TesteConexao();
+            Assert.IsTrue(result);
         }
     }
 }

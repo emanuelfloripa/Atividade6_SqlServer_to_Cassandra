@@ -6,6 +6,7 @@ SELECT * FROM invoice
 SELECT COUNT(*) 
 FROM (SELECT DISTINCT number FROM invoice) number
 
+SELECT TOP 20 *  FROM invoice_item
 
 
 SELECT COUNT(*) invoice_item 
