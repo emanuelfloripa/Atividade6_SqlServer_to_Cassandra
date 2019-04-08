@@ -8,15 +8,16 @@ namespace Atividade6_Cassandra.Models
     public class ConsultaNotaFiscalSQL
     {
         public const string Script =
-            "SELECT "
+            "SELECT top 1000"
             + " i.number NF,"
-            + " c.name NomeCliente, "
-            + " c.address Endereco, "
-            + " ss.service_description DescricaoServico, "
+            + " COALESCE(c.name, 'n/a') NomeCliente, "
+            + " COALESCE(c.address,'n/a') Endereco,  "
+            + " i.value Valor, "
+            + " COALESCE(ss.service_description, 'n/a') DescricaoServico, "
             + " ii.quantity Quantidade,"
             + " ii.unit_value ValorUnitario,"
-            + " r.name NomeRecurso,"
-            + " rq.qualificatin_name FuncaoRecurso,"
+            + " COALESCE(r.name, 'n/a') NomeRecurso,"
+            + " COALESCE(rq.qualificatin_name, 'n/a') FuncaoRecurso,"
             + " ii.tax_percent Taxa,"
             + " ii.discount_percent Desconto,"
             + " ii.subtotal  SubTotal"

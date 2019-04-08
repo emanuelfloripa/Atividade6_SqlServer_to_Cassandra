@@ -13,12 +13,12 @@ namespace Atividade6_Cassandra.Controllers
         /// https://docs.datastax.com/en/developer/csharp-driver/3.2/
         /// 
 
-
-
         private readonly string _keyspace = "atividade6";
         private readonly object _nomeTabelaNF = "notafiscal";
         private Cluster _cluster;
         private ISession _session;
+        private PreparedStatement _prepareStatement;
+        private BoundStatement _statement;
 
         public CassandraCtr()
         {
@@ -59,15 +59,38 @@ namespace Atividade6_Cassandra.Controllers
             Debug.WriteLine("* Criando as tabelas.");
         }
 
-        public RowSet ExecuteSql(string sql, Object[] p)
+        /// <summary>
+        /// Prepara a execução com um SQL com parâmetros.
+        /// Deve ser seguido por StatementBind
+        /// </summary>
+        /// <param name="sql"></param>
+        public void StatementPrepare(string sql)
         {
-            var ps = _session.Prepare(sql);
-            //...bind different parameters every time you need to execute
-            var statement = ps.Bind(p);
-            //Execute the bound statement with the provided parameters
-            return _session.Execute(statement);
+            _prepareStatement = _session.Prepare(sql);
+        }
+        /// <summary>
+        /// Realiza o bind do Statement.
+        /// <para>Deve ser executado somente após StatementPrepare.</para>
+        /// </summary>
+        /// <param name="parametros">Parâmetros do SQL</param>
+        public void StatementBind(Object[] parametros)
+        {
+            _statement = _prepareStatement.Bind(parametros);
+        }
+        /// <summary>
+        /// Deve ser executado após StatementPrepare() e StatementBind().
+        /// </summary>
+        /// <returns></returns>
+        public RowSet ExecutePreparedStatement()
+        {
+            return _session.Execute(_statement);
         }
 
+        /// <summary>
+        /// Executa o SQL e retorna o 
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
         public RowSet ExecuteSql(string sql)
         {
             return _session.Execute(sql);

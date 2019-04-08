@@ -14,10 +14,10 @@ namespace Atividade6_Cassandra.Tests
 
 
         [TestMethod]
-        public void LoadSQL()
+        public void ExecutaMigracao()
         {
             var mm = new Migracao();
-            mm.TesteLoadSQL();
+            mm.ExecutaMigracao();
         }
 
         [TestMethod]

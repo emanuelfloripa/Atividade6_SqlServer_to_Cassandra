@@ -10,6 +10,7 @@ namespace Atividade6_Cassandra.Models
         public int NF { get; set; }
         public string NomeCliente { get; set; }
         public string Endereco { get; set; }
+        public double Valor { get; set; }
         public string DescricaoServico { get; set; }
         public int Quantidade { get; set; }
         public double ValorUnitario { get; set; }

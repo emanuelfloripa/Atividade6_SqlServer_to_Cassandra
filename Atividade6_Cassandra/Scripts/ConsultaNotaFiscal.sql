@@ -4,6 +4,7 @@ SELECT
 i.number NF,
 COALESCE(c.name, 'n/a') NomeCliente, 
 COALESCE(c.address,'n/a') Endereco, 
+i.value Valor,
 COALESCE(ss.service_description, 'n/a') DescricaoServico, 
 ii.quantity Quantidade,
 ii.unit_value ValorUnitario,

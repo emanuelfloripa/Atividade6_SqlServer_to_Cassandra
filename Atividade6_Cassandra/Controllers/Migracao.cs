@@ -15,12 +15,6 @@ namespace Atividade6_Cassandra.Controllers
         }
 
 
-        public void TestConexaoCassandra()
-        {
-
-        }
-
-
         // How to embedded a "Text file" inside of a C# project
         //   and read it as a resource from c# code:
         //
@@ -52,26 +46,50 @@ namespace Atividade6_Cassandra.Controllers
         }
 
 
-        public void TesteLoadSQL()
+        public void ExecutaMigracao()
         {
             var connStr = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
             
             var con = new SqlConnection(connStr);
             con.Open();
 
-            //NF NomeCliente Endereco DescricaoServico    Quantidade ValorUnitario   NomeRecurso FuncaoRecurso   Taxa Desconto    SubTotal
-            //0  1           2          3                 4             5               6           7             8     9           10 
+            //nf, nomecliente, endereco, valor, descricaoservico, quantidade, valorunitario, nomerecurso, funcaorecurso, taxa, desconto, subtotal
+            //0   1              2          3         4             5               6           7             8            9      10        11
             var command = new SqlCommand(ConsultaNotaFiscalSQL.Script, con);
             SqlDataReader dataReader;
             try
             {
                 dataReader = command.ExecuteReader();
+                var nf = new NotaFiscalModel();
 
+                var cas = new CassandraCtr();
+
+                //Limpa a tabela de dados destino
+                cas.ExecuteSql("truncate notafiscal;");
+
+                var sqli = "insert into notafiscal (id, nf, nomecliente, endereco, valor, descricaoservico, quantidade, valorunitario, " +
+                    " nomerecurso, funcaorecurso, taxa, desconto, subtotal) values(uuid(), ?,?,?,?,?,?,?,?,?,?,?,?); ";
+                cas.StatementPrepare(sqli);
 
                 while (dataReader.Read())
                 {
-                    //xxx = (string)dataReader.GetValue(0);
-                    //System.Console.WriteLine(xxx);
+                    nf.NF = (int)dataReader.GetValue(0);
+                    nf.NomeCliente = (string)dataReader.GetValue(1);
+                    nf.Endereco = (string)dataReader.GetValue(2);
+
+                    nf.Valor = (double)dataReader.GetValue(3);
+                    nf.DescricaoServico = (string)dataReader.GetValue(4);
+                    nf.Quantidade = (int)dataReader.GetValue(5);
+                    nf.ValorUnitario = (double)dataReader.GetValue(6);
+                    nf.NomeRecurso = (string)dataReader.GetValue(7);
+                    nf.FuncaoRecurso = (string)dataReader.GetValue(8);
+                    nf.Taxa = (double)dataReader.GetValue(9);
+                    nf.Desconto = (double)dataReader.GetValue(10);
+                    nf.SubTotal = (double)dataReader.GetValue(11);
+
+                    cas.StatementBind(new object[] { nf.NF, nf.NomeCliente, nf.Endereco, nf.Valor, nf.DescricaoServico, nf.Quantidade,
+                        nf.ValorUnitario, nf.NomeRecurso, nf.FuncaoRecurso, nf.Taxa, nf.Desconto, nf.SubTotal});
+                    cas.ExecutePreparedStatement();
                 }
             }
             finally 
