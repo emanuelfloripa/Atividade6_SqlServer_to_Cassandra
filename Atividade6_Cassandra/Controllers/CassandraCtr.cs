@@ -1,4 +1,5 @@
-﻿using Cassandra;
+﻿using Atividade6_Cassandra.Models;
+using Cassandra;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -94,6 +95,18 @@ namespace Atividade6_Cassandra.Controllers
         public RowSet ExecuteSql(string sql)
         {
             return _session.Execute(sql);
+        }
+
+        public List<NotaFiscalModel> LoadNotaFiscal(int nfNumber)
+        {
+            var result = new List<NotaFiscalModel>();
+            var sql = $"select * from notafiscal where nf = {nfNumber};";
+            var lista = ExecuteSql(sql);
+            //lista.
+
+
+
+            return result;
         }
 
         private void CriarSeNaoExistirDataBase()
