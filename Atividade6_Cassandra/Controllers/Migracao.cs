@@ -61,8 +61,6 @@ namespace Atividade6_Cassandra.Controllers
             var con = new SqlConnection(connStr);
             con.Open();
 
-            //nf, nomecliente, endereco, valor, descricaoservico, quantidade, valorunitario, nomerecurso, funcaorecurso, taxa, desconto, subtotal
-            //0   1              2          3         4             5               6           7             8            9      10        11
             var command = new SqlCommand(ConsultaNotaFiscalSQL.Script, con);
             SqlDataReader dataReader;
             try
@@ -70,11 +68,15 @@ namespace Atividade6_Cassandra.Controllers
                 dataReader = command.ExecuteReader();
                 var nf = new NotaFiscalModel();
 
+                // Conecta na base Cassandra
+                // Cria as tabelas se não existirem.
                 var cas = new CassandraCtr();
 
                 //Limpa a tabela de dados destino
                 cas.ExecuteSql("truncate notafiscal;");
 
+                //nf, nomecliente, endereco, valor, descricaoservico, quantidade, valorunitario, nomerecurso, funcaorecurso, taxa, desconto, subtotal
+                //0   1              2          3         4             5               6           7             8            9      10        11
                 var sqli = "insert into notafiscal (id, nf, nomecliente, endereco, valor, descricaoservico, quantidade, valorunitario, " +
                     " nomerecurso, funcaorecurso, taxa, desconto, subtotal) values(uuid(), ?,?,?,?,?,?,?,?,?,?,?,?); ";
                 cas.StatementPrepare(sqli);

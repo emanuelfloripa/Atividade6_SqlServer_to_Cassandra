@@ -13,5 +13,17 @@ namespace Atividade6_Cassandra
         {
 
         }
+
+        protected void Unnamed_Click(object sender, EventArgs e)
+        {
+            var m = new Controllers.Migracao();
+            m.ExecutaMigracao();
+        }
+
+        protected void ShowMessage(string texto)
+        {
+            Page.ClientScript.RegisterStartupScript(Page.GetType(), "Message Box", $"<script language = 'javascript'>alert('{texto}')</script>");
+
+        }
     }
 }

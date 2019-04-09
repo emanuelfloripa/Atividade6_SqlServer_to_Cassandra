@@ -4,4 +4,5 @@
     <h2><%: Title %>.</h2>
     <h3>Atividade 6 - NoSQL - Big Data - UNIVALI.</h3>
     <p>Emanuel Espíndola - emanuelx@msn.com</p>
+    <asp:Button  runat="server" class="btn btn-default" OnClick="Unnamed_Click" Text="Importar dados (Realiza toda a migração do SQLServer para o Cassandra)" />
 </asp:Content>
