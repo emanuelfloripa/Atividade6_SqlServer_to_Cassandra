@@ -409,6 +409,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CassandraCreateTables.cs" />
     <Compile Include="Models\ConsultaNotaFiscalSQL.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\NotaFiscalModel.cs" />

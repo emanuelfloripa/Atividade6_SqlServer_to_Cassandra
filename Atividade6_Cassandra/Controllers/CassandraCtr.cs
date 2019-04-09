@@ -61,8 +61,8 @@ namespace Atividade6_Cassandra.Controllers
 
         private void CreateDataBase()
         {
-            //TODO script para criar a base aqui
             Debug.WriteLine("* Criando as tabelas.");
+            ExecuteSql(CassandraCreateTables.Script);
         }
 
         /// <summary>
@@ -191,6 +191,9 @@ namespace Atividade6_Cassandra.Controllers
             response.End();
         }
 
+        /// <summary>
+        /// Verifica se a base existe no server Cassandra conectado. Senão ele cria.
+        /// </summary>
         private void CriarSeNaoExistirDataBase()
         {
             var sql = $"SELECT table_name FROM system_schema.tables WHERE keyspace_name = '{_keyspace}' and table_name = '{_nomeTabelaNF}'; ";
@@ -199,7 +202,6 @@ namespace Atividade6_Cassandra.Controllers
             {
                 CreateDataBase();
             }
-            //TODO verificar o resultado e chamar a criação de tabelas
         }
 
         /// <summary>

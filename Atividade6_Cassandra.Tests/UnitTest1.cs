@@ -42,12 +42,6 @@ namespace Atividade6_Cassandra.Tests
         }
 
         [TestMethod]
-        public void loadScriptSqlFromFileResource()
-        {
-            var script = Migracao.GetEmbeddedResourceFile("ConsultaNotaFiscal");
-        }
-
-        [TestMethod]
         public void LoadNF()
         {
             var nf = 1901419;
