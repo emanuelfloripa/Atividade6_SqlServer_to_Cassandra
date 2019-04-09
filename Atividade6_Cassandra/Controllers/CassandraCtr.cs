@@ -28,11 +28,15 @@ namespace Atividade6_Cassandra.Controllers
             CriarSeNaoExistirDataBase();
         }
 
-
+        /// <summary>
+        /// Faz um teste de conexão na base Cassandra em 127.0.0.1
+        /// </summary>
+        /// <returns></returns>
         public bool TesteConexao()
         {
             try
             {
+                //TODO parametrizar o local do Cassandra no web.config.
                 //Create a cluster instance using 3 cassandra nodes.
                 var cluster = Cluster.Builder()
                   .AddContactPoints("127.0.0.1", "localhost")
@@ -98,6 +102,11 @@ namespace Atividade6_Cassandra.Controllers
             return _session.Execute(sql);
         }
 
+        /// <summary>
+        /// Realiza o load de uma nota nfNumber
+        /// </summary>
+        /// <param name="nfNumber"></param>
+        /// <returns>Lista de itens da nota</returns>
         public List<NotaFiscalModel> LoadNotaFiscal(int nfNumber)
         {
             var result = new List<NotaFiscalModel>();
@@ -125,7 +134,10 @@ namespace Atividade6_Cassandra.Controllers
 
             return result;
         }
-
+        /// <summary>
+        /// Salva um relatório PDF da nota número nfNumber
+        /// </summary>
+        /// <param name="nfNumber"></param>
         public void ExportaPdfNota(int nfNumber)
         {
             var notas = LoadNotaFiscal(nfNumber);
@@ -133,7 +145,11 @@ namespace Atividade6_Cassandra.Controllers
             pdf.SaveToFile($"{nfNumber}.pdf");
         }
 
-
+        /// <summary>
+        /// Realizar o download para o HttpContext do relatório PDF para nfNumber parametrizado
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="nfNumber"></param>
         public void DownloadPdf(HttpContext context, int nfNumber)
         {
             var notas = LoadNotaFiscal(nfNumber);
@@ -142,6 +158,14 @@ namespace Atividade6_Cassandra.Controllers
             WriteFileToResponse(context, bytes, $"{nfNumber}.pdf");
         }
 
+        /// <summary>
+        /// Escreve o HttpContext com os bytes 
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="bytes"></param>
+        /// <param name="fileName"></param>
+        /// <see cref="http://blog.softartisans.com/2016/04/15/save-pdf-file-to-httpresponse/"/>
         private static void WriteFileToResponse(HttpContext context, byte[] bytes, string fileName)
         {
             var bytesLength = bytes.Length.ToString(CultureInfo.InvariantCulture);
@@ -167,6 +191,9 @@ namespace Atividade6_Cassandra.Controllers
             //TODO verificar o resultado e chamar a criação de tabelas
         }
 
+        /// <summary>
+        /// Abre o banco Cassandra
+        /// </summary>
         private void OpenCassandraDB()
         {
             _cluster = Cluster.Builder()

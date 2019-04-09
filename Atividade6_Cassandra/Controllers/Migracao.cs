@@ -7,6 +7,9 @@ using System.Web;
 
 namespace Atividade6_Cassandra.Controllers
 {
+    /// <summary>
+    /// Realiza a migração dos dados do SQL Server para a base Cassandra
+    /// </summary>
     public class Migracao
     {
         public Migracao()
@@ -45,7 +48,12 @@ namespace Atividade6_Cassandra.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Executa a migração completa.
+        /// <para>- Apaga a tabela NotaFiscal da base Cassandra</para>
+        /// <para>- Obtem os dados da base SQL Server</para>
+        /// <para>- Reimporta todos os dados novamente</para>
+        /// </summary>
         public void ExecutaMigracao()
         {
             var connStr = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;

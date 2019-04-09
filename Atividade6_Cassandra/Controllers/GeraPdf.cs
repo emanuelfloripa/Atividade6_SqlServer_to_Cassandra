@@ -29,6 +29,10 @@ namespace Atividade6_Cassandra.Controllers
         PdfDocumentBuilder.AddedFont _font;
         private int _col;
 
+        /// <summary>
+        /// Prepara o Gerador de PDF com a lista de notas.
+        /// </summary>
+        /// <param name="notas"></param>
         public GeraPdf(List<Models.NotaFiscalModel> notas)
         {
             _notas = notas;
@@ -41,11 +45,19 @@ namespace Atividade6_Cassandra.Controllers
             _font = _builder.AddStandard14Font(Standard14Font.Helvetica);
         }
 
+        /// <summary>
+        /// Adiciona uma linha de detalhe.
+        /// </summary>
+        /// <param name="texto"></param>
         private void AddLinha(string texto)
         {
             _page.AddText(texto, 10, new PdfPoint(10, _linha), _font);
             _linha = _linha - _lineHeight;
         }
+
+        /// <summary>
+        /// Monta o header da tabela de itens da NF.
+        /// </summary>
         private void MontaHeader()
         {
             _col = 10;
@@ -59,6 +71,11 @@ namespace Atividade6_Cassandra.Controllers
             AddColuna("SubTotal", 50);
             _linha = _linha - _lineHeight;
         }
+
+        /// <summary>
+        /// Adicionar uma linha na tabela de itens da NF.
+        /// </summary>
+        /// <param name="nota"></param>
         private void AddItem(NotaFiscalModel nota)
         {
             _col = 10;
@@ -83,6 +100,10 @@ namespace Atividade6_Cassandra.Controllers
             _col = _col + incCol;
         }
 
+        /// <summary>
+        /// Salva o relatório PDF em arquivo local em filePath.
+        /// </summary>
+        /// <param name="filePath"></param>
         public void SaveToFile(string filePath)
         {
             var documentBytes = GetPdfBytes();
@@ -90,6 +111,10 @@ namespace Atividade6_Cassandra.Controllers
             
         }
 
+        /// <summary>
+        /// Monta o stream do relatório, em bytes[].
+        /// </summary>
+        /// <returns></returns>
         public byte[] GetPdfBytes()
         {
             if ((_notas == null) || (_notas.Count == 0))
@@ -114,19 +139,6 @@ namespace Atividade6_Cassandra.Controllers
             return documentBytes;
         }
 
-        //private void TestLoadTextFromPdf()
-        //{
-        //    using (PdfDocument document = PdfDocument.Open(@"C:\my-file.pdf"))
-        //    {
-        //        int pageCount = document.NumberOfPages;
 
-        //        Page page = document.GetPage(1);
-
-        //        decimal widthInPoints = page.Width;
-        //        decimal heightInPoints = page.Height;
-
-        //        string text = page.Text;
-        //    }
-        //}
     }
 }
