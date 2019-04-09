@@ -3,6 +3,7 @@ using Cassandra;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 
@@ -130,6 +131,29 @@ namespace Atividade6_Cassandra.Controllers
             var notas = LoadNotaFiscal(nfNumber);
             var pdf = new GeraPdf(notas);
             pdf.SaveToFile($"{nfNumber}.pdf");
+        }
+
+
+        public void DownloadPdf(HttpContext context, int nfNumber)
+        {
+            var notas = LoadNotaFiscal(nfNumber);
+            var pdf = new GeraPdf(notas);
+            var bytes = pdf.GetPdfBytes();
+            WriteFileToResponse(context, bytes, $"{nfNumber}.pdf");
+        }
+
+        private static void WriteFileToResponse(HttpContext context, byte[] bytes, string fileName)
+        {
+            var bytesLength = bytes.Length.ToString(CultureInfo.InvariantCulture);
+            var response = context.Response;
+            response.Clear();
+            response.Buffer = true;
+            response.AddHeader("Content-Length", bytesLength);
+            response.AddHeader("Content-Disposition", "attachment; filename=" + fileName);
+            response.ContentType = MimeMapping.GetMimeMapping(fileName);
+            response.BinaryWrite(bytes);
+            response.Flush();
+            response.End();
         }
 
         private void CriarSeNaoExistirDataBase()

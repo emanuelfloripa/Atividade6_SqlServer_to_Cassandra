@@ -85,6 +85,13 @@ namespace Atividade6_Cassandra.Controllers
 
         public void SaveToFile(string filePath)
         {
+            var documentBytes = GetPdfBytes();
+            File.WriteAllBytes(@filePath, documentBytes);
+            
+        }
+
+        public byte[] GetPdfBytes()
+        {
             if ((_notas == null) || (_notas.Count == 0))
                 throw new Exception("A lista de notas está vazia ou nula.");
 
@@ -104,27 +111,7 @@ namespace Atividade6_Cassandra.Controllers
             }
 
             byte[] documentBytes = _builder.Build();
-            File.WriteAllBytes(@filePath, documentBytes);
-            
-        }
-
-        public static void WriteFileToResponse(HttpContext context, byte[] bytes, string fileName)
-        {
-            var bytesLength = bytes.Length.ToString(CultureInfo.InvariantCulture);
-            var response = context.Response;
-            response.Clear();
-            response.Buffer = true;
-            response.AddHeader("Content-Length", bytesLength);
-            response.AddHeader("Content-Disposition", "attachment; filename=" + fileName);
-            response.ContentType = MimeMapping.GetMimeMapping(fileName);
-            response.BinaryWrite(bytes);
-            response.Flush();
-            response.End();
-        }
-
-        private void Execute()
-        {
-
+            return documentBytes;
         }
 
         //private void TestLoadTextFromPdf()

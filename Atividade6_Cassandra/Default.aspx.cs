@@ -26,7 +26,7 @@ namespace Atividade6_Cassandra
                 return;
             }
 
-            cas.ExportaPdfNota(nfNum);
+            cas.DownloadPdf(Context, nfNum);
         }
     }
 }
