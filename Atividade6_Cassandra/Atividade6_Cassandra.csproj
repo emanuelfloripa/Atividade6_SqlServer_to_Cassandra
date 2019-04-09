@@ -235,10 +235,10 @@
     <Content Include="Resources\AdobeFontMetrics\MustRead.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EmbeddedResource Include="Scripts\ConsultaNotaFiscal.sql">
+    <EmbeddedResource Include="SQL\ConsultaNotaFiscal.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <Content Include="Scripts\dump_invoice_system_convertido.sql" />
+    <Content Include="SQL\dump_invoice_system_convertido.sql" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -266,12 +266,11 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Site.Master" />
-    <Content Include="SQLQuery4.sql" />
+    <Content Include="SQL\SQLQuery4.sql" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
     <Content Include="Site.Mobile.Master" />
-    <Content Include="views\Carregamento.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account\AddPhoneNumber.aspx.cs">
