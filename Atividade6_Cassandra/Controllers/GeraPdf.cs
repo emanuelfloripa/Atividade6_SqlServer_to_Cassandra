@@ -42,32 +42,32 @@ namespace Atividade6_Cassandra.Controllers
 
         private void AddLinha(string texto)
         {
-            _page.AddText(texto, 12, new PdfPoint(10, _linha), _font);
+            _page.AddText(texto, 10, new PdfPoint(10, _linha), _font);
             _linha = _linha - _lineHeight;
         }
         private void MontaHeader()
         {
             _col = 10;
-            AddColuna("Servico", 150);
-            AddColuna("Quant.", 30);
+            AddColuna("Servico", 200);
+            AddColuna("Qtd.", 30);
             AddColuna("Vl.Unit.", 30);
             AddColuna("Recurso", 100);
-            AddColuna("Funcao", 100);
-            AddColuna("Taxa", 50);
-            AddColuna("Desc.", 50);
+            AddColuna("Funcao", 80);
+            AddColuna("Taxa", 40);
+            AddColuna("Desc.", 40);
             AddColuna("SubTotal", 50);
             _linha = _linha - _lineHeight;
         }
         private void AddItem(NotaFiscalModel nota)
         {
             _col = 10;
-            AddColuna(nota.DescricaoServico, 150);
+            AddColuna(nota.DescricaoServico, 200);
             AddColuna(nota.Quantidade.ToString(), 30);
             AddColuna(nota.ValorUnitario.ToString("0,00"), 30);
             AddColuna(nota.NomeRecurso, 100);
-            AddColuna(nota.FuncaoRecurso, 100);
-            AddColuna(nota.Taxa.ToString("0.00"), 50);
-            AddColuna(nota.Desconto.ToString("0.00"), 50);
+            AddColuna(nota.FuncaoRecurso, 80);
+            AddColuna(nota.Taxa.ToString("0.00"), 40);
+            AddColuna(nota.Desconto.ToString("0.00"), 40);
             AddColuna(nota.SubTotal.ToString("0.00"), 50);
             _linha = _linha - _lineHeight;
         }
@@ -78,7 +78,7 @@ namespace Atividade6_Cassandra.Controllers
         /// <param name="incCol"></param>
         private void AddColuna(string texto, int incCol)
         {
-            _page.AddText(texto, 12, new PdfPoint(_col, _linha), _font);
+            _page.AddText(texto, 10, new PdfPoint(_col, _linha), _font);
             _col = _col + incCol;
         }
 

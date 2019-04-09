@@ -52,8 +52,21 @@ namespace Atividade6_Cassandra.Tests
         {
             var nf = 1901419;
             var notas = new CassandraCtr().LoadNotaFiscal(nf);
-            Assert.AreEqual(notas.Count, 10);
-            Assert.AreEqual(notas[0].NomeCliente, "");
+            Assert.AreEqual(notas.Count, 15);
+            Assert.AreEqual(notas[0].NomeCliente, "RIC TV");
+
+            nf = 1263687;
+            notas = new CassandraCtr().LoadNotaFiscal(nf);
+            Assert.AreEqual(notas.Count, 5);
+            Assert.AreEqual(notas[0].NomeCliente, "De Bortoli Wines");
+        }
+
+        [TestMethod]
+        public void GeraPdfDaNota()
+        {
+            var nf = 1901419;
+            var ca = new CassandraCtr();
+            ca.ExportaPdfNota(nf);            
         }
     }
 }

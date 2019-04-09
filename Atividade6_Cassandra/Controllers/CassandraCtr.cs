@@ -102,11 +102,34 @@ namespace Atividade6_Cassandra.Controllers
             var result = new List<NotaFiscalModel>();
             var sql = $"select * from notafiscal where nf = {nfNumber};";
             var lista = ExecuteSql(sql);
-            //lista.
 
+            foreach (var row in lista)
+            {
+                var item = new NotaFiscalModel();
+                item.NF = row.GetValue<int>("nf");
+                item.NomeCliente = row.GetValue<string>("nomecliente");
+                item.Endereco = row.GetValue<string>("endereco");
+                item.Valor = row.GetValue<double>("valor");
+                item.DescricaoServico = row.GetValue<string>("descricaoservico");
+                item.Quantidade = row.GetValue<int>("quantidade");
+                item.ValorUnitario = row.GetValue<double>("valorunitario");
+                item.NomeRecurso = row.GetValue<string>("nomerecurso");
+                item.FuncaoRecurso = row.GetValue<string>("funcaorecurso");
+                item.Taxa = row.GetValue<double>("taxa");
+                item.Desconto = row.GetValue<double>("desconto");
+                item.SubTotal = row.GetValue<double>("subtotal");
 
+                result.Add(item);
+            }
 
             return result;
+        }
+
+        public void ExportaPdfNota(int nfNumber)
+        {
+            var notas = LoadNotaFiscal(nfNumber);
+            var pdf = new GeraPdf(notas);
+            pdf.SaveToFile($"{nfNumber}.pdf");
         }
 
         private void CriarSeNaoExistirDataBase()
