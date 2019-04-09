@@ -13,5 +13,20 @@ namespace Atividade6_Cassandra
         {
 
         }
+
+        protected void executeButton_Click(object sender, EventArgs e)
+        {
+            var cas = new Controllers.CassandraCtr();
+            var nf = nfNumber.Text;
+            int nfNum = 0;
+
+            if (!Int32.TryParse(nf, out nfNum))
+            {
+                Context.AddError(new Exception("O valor deve ser numérico."));
+                return;
+            }
+
+            cas.ExportaPdfNota(nfNum);
+        }
     }
 }
