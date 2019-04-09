@@ -117,8 +117,11 @@ namespace Atividade6_Cassandra.Controllers
         /// <returns></returns>
         public byte[] GetPdfBytes()
         {
-            if ((_notas == null) || (_notas.Count == 0))
-                throw new Exception("A lista de notas está vazia ou nula.");
+            if (_notas == null) 
+                throw new Exception("A lista de notas está  nula.");
+
+            if (_notas.Count == 0)
+                throw new Exception("Não existe uma NF para o número informado.");
 
             var nf = _notas[0].NF.ToString("000000000#");
             var cliente = _notas[0].NomeCliente;

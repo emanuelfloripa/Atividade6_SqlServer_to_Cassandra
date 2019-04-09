@@ -150,12 +150,23 @@ namespace Atividade6_Cassandra.Controllers
         /// </summary>
         /// <param name="context"></param>
         /// <param name="nfNumber"></param>
-        public void DownloadPdf(HttpContext context, int nfNumber)
+        public bool DownloadPdf(HttpContext context, int nfNumber, out string erroMsg)
         {
-            var notas = LoadNotaFiscal(nfNumber);
-            var pdf = new GeraPdf(notas);
-            var bytes = pdf.GetPdfBytes();
-            WriteFileToResponse(context, bytes, $"{nfNumber}.pdf");
+            try
+            {
+                var notas = LoadNotaFiscal(nfNumber);
+                var pdf = new GeraPdf(notas);
+                var bytes = pdf.GetPdfBytes();
+                WriteFileToResponse(context, bytes, $"{nfNumber}.pdf");
+                erroMsg = "";
+                return true;
+            }
+            catch (Exception e)
+            {
+                erroMsg = e.Message;
+                return false;
+            }
+
         }
 
         /// <summary>

@@ -22,11 +22,20 @@ namespace Atividade6_Cassandra
 
             if (!Int32.TryParse(nf, out nfNum))
             {
-                Context.AddError(new Exception("O valor deve ser numérico."));
+                ShowMessage("O valor deve ser numérico.");
                 return;
             }
+            var msg = "";
+            if (!cas.DownloadPdf(Context, nfNum, out msg))
+            {
+                ShowMessage(msg);
+            }
+        }
 
-            cas.DownloadPdf(Context, nfNum);
+        protected void ShowMessage(string texto)
+        {
+            Page.ClientScript.RegisterStartupScript(Page.GetType(), "Message Box", $"<script language = 'javascript'>alert('{texto}')</script>");
+
         }
     }
 }

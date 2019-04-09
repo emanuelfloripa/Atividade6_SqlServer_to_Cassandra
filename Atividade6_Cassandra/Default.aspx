@@ -5,19 +5,17 @@
     <div class="jumbotron">
         <h1>Atividade 6</h1>
         <p class="lead">Executando a migração de uma base SQL Server para uma base Cassandra e obtendo os valores para gerar um relatório em pdf.</p>
-        <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+        <%--<p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>--%>
+                    <h3>Digite o número da NF para gerar o relatório:</h3>
+            <p> 
+                <asp:TextBox class="btn btn-default"  runat="server" ID="nfNumber" TextMode="Number" /> 
+                <asp:Button class="btn btn-default" runat="server" ID="executeButton" Text="Exportar PDF" OnClick="executeButton_Click"/>
+            </p>
+
     </div>
 
     <div class="row">
         <div class="col-md-4">
-            <h2>Getting started</h2>
-            <p> 
-                <asp:TextBox runat="server" ID="nfNumber" TextMode="Number" />
-                <asp:Button runat="server" ID="executeButton" Text="Exportar PDF" OnClick="executeButton_Click"/>
-            </p>
-            <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301948">Learn more &raquo;</a>
-            </p>
         </div>
         <!-- div class="col-md-4">
             <h2>Get more libraries</h2>
